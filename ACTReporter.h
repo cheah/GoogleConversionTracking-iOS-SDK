@@ -12,7 +12,7 @@
 + (NSString *)SDKVersion;
 
 /// Reports conversion and remarketing information to Google. Call this method on subclass
-/// instances. Returns YES if reporting was started succesfully.
+/// instances. Returns YES if reporting was started successfully.
 - (BOOL)report;
 @end
 
@@ -34,7 +34,7 @@
                isRepeatable:(BOOL)isRepeatable;
 
 /// Register a click referrer from a Google ad click URL. Returns YES if the URL was registered
-/// succesfully.
+/// successfully.
 + (BOOL)registerReferrer:(NSURL *)clickURL;
 
 /// Returns an initialized conversion ACTConversionReporter object for conversion ID/label
@@ -57,15 +57,22 @@
 
 /// Reports remarketing information to Google.
 + (void)reportWithConversionID:(NSString *)conversionID
-                         label:(NSString *)label
-                    screenName:(NSString *)screenName
               customParameters:(NSDictionary *)customParameters;
 
 /// Returns an initialized remarketing ACTRemarketingReporter object. Use this method to separate
 /// remarketing initialization and reporting.
 - (instancetype)initWithConversionID:(NSString *)conversionID
-                               label:(NSString *)label
-                          screenName:(NSString *)screenName
                     customParameters:(NSDictionary *)customParameters;
+
+@end
+
+/// Automates usage remarketing information reporting.
+@interface ACTAutomatedUsageTracker : NSObject
+
+/// Call this method early in the application's lifecycle to start collecting usage data.
++ (void)enableAutomatedUsageReportingWithConversionID:(NSString *)conversionID;
+
+/// Call this method to disable usage reporting for the provided conversion ID.
++ (void)disableAutomatedUsageReportingWithConversionID:(NSString *)conversionID;
 
 @end
