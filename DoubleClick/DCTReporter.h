@@ -14,15 +14,20 @@
 /// String representation of conversion value. Example: @"3.99".
 @property(nonatomic, copy) NSString *value;
 
+/// String representation of currency code. Example: @"USD".
+@property(nonatomic, copy) NSString *currencyCode;
+
 /// Reports conversion information to Google.
 + (void)reportWithConversionID:(NSString *)conversionID
                          value:(NSString *)value
+                  currencyCode:(NSString *)currencyCode
                   isRepeatable:(BOOL)isRepeatable;
 
 /// Returns an initialized conversion ACTConversionReporter object for conversion ID/label
 /// reporting. Use this method to separate conversion tracker initialization and reporting.
 - (instancetype)initWithConversionID:(NSString *)conversionID
                                value:(NSString *)value
+                        currencyCode:(NSString *)currencyCode
                         isRepeatable:(BOOL)isRepeatable;
 
 @end
@@ -42,5 +47,24 @@
 - (instancetype)initWithAdUnitID:(NSString *)adUnitID
              publisherProvidedID:(NSString *)publisherProvidedID
                 customParameters:(NSDictionary *)customParameters;
+
+@end
+
+#pragma mark - Deprecated API
+
+@interface DCTConversionReporter (Deprecated)
+
+/// Reports conversion information to Google.
++ (void)reportWithConversionID:(NSString *)conversionID
+                         value:(NSString *)value
+                  isRepeatable:(BOOL)isRepeatable
+    DEPRECATED_MSG_ATTRIBUTE("Use reportWithConversionID:value:currencyCode:isRepeatable:");
+
+/// Returns an initialized conversion DCTConversionReporter object for conversion ID reporting. Use
+/// this method to separate conversion tracker initialization and reporting.
+- (instancetype)initWithConversionID:(NSString *)conversionID
+                               value:(NSString *)value
+                        isRepeatable:(BOOL)isRepeatable
+    DEPRECATED_MSG_ATTRIBUTE("Use initWithConversionID:value:currencyCode:isRepeatable:");
 
 @end
